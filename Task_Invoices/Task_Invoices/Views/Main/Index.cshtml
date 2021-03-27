@@ -1,0 +1,140 @@
+﻿@model List<Task_Invoices.Models.TUser>
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <link href="~/Files/bootstrap.css" rel="stylesheet" />
+</head>
+<body>
+
+    <br />
+    @if (ViewBag.role == 1)
+    {
+        <h2>Welcome @ViewBag.Name.FullName</h2>
+        <div id="dv">
+            <table class="table" border="1">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Full Name</th>
+                        <th scope="col">User Name</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Phone</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.FullName</td>
+                            <td>@item.UserName</td>
+                            <td>@item.Email</td>
+                            <td>@item.Phone</td>
+                            <td>
+                                @Ajax.ActionLink("Edit", "EditUser", new { id = item.ID },
+               new AjaxOptions()
+               {
+                   UpdateTargetId = "d1",
+                   InsertionMode = InsertionMode.Replace,
+                   OnComplete = "show"
+               }, new { @class = "fa fa-link" }
+               )|
+                                @Html.ActionLink("Delete", "DeleteUser", new { id = item.ID })|
+                                @Html.ActionLink("Show Invoices", "Display", "Invoices", new { id = item.ID }, null)
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        
+        @Ajax.ActionLink("Add New User", "AddUser", null,
+                       new AjaxOptions()
+                       {
+                           UpdateTargetId = "d1",
+                           InsertionMode = InsertionMode.Replace,
+                           OnComplete = "show"
+                       }, new { @class = "btn btn-primary" }
+                       )
+
+        <input type="button" value=" Export to PDF " onclick="GetPDF()" class="btn btn-primary" />
+    }
+    else
+    {
+        <h2>Welcome @ViewBag.Name.FullName</h2>
+        <form method="post">
+            <div>
+                <input type="submit" value="Search By Full Name" class="btn btn-primary" />
+                <input type="text" name="FullName" value="" />
+                <input type="hidden" name="ID" value="@ViewBag.role" />
+            </div>
+        </form>
+        @Html.ActionLink("Show My Invoices", "Display", "Invoices", new { id = ViewBag.role },null)
+
+        if (ViewBag.search != null)
+        {
+            <table class="table" border="1">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Full Name</th>
+                        <th scope="col">User Name</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Phone</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in (List<Task_Invoices.Models.TUser>)ViewBag.user)
+                    {
+                        <tr>
+                            <td>@item.FullName</td>
+                            <td>@item.UserName</td>
+                            <td>@item.Email</td>
+                            <td>@item.Phone</td>
+                        </tr>
+                    }
+                    @*@for (int i = 1; i < Model.Count; i++)
+                        {
+                            <tr>
+                                <td>@Model[i].FullName</td>
+                                <td>@Model[i].UserName</td>
+                                <td>@Model[i].Email</td>
+                                <td>@Model[i].Phone</td>
+                            </tr>
+                        }*@
+
+                </tbody>
+            </table>
+        }
+    }
+    <br />
+    <div id="d1" class="modal-dialog-centered justify-content-center">
+
+    </div>
+    <script src="~/Scripts/jquery-1.8.0.min.js"></script>
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+    <script>
+        function GetPDF() {
+
+            var Content = document.getElementById("dv").innerHTML;
+            var originalContent = document.body.innerHTML;
+            document.body.innerHTML = Content;
+                window.print();
+                document.body.innerHTML = originalContent;
+        }
+    </script>
+    @if (Session["reload"] != null)
+    {
+        Session["reload"] = null;
+
+        <script>window.location.reload();</script>
+    }
+</body>
+</html>

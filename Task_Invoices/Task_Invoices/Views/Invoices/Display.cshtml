@@ -1,0 +1,59 @@
+﻿@model List<Task_Invoices.Models.Invoice>
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Display</title>
+    <link href="~/Files/bootstrap.css" rel="stylesheet" />
+</head>
+<body>
+    <div>
+        <table class="table" border="1">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Product</th>
+                    <th scope="col">Quantity</th>
+                    <th scope="col">Price</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.Product</td>
+                        <td>@item.Quantity</td>
+                        <td>@item.Price</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        @Ajax.ActionLink("Create New Invoice", "Create", new { id = ViewBag.role },
+new AjaxOptions()
+{
+UpdateTargetId = "d1",
+InsertionMode = InsertionMode.Replace,
+OnComplete = "show"
+}, new { @class = "btn btn-primary" }
+)
+    </div>
+    <br />
+    <div id="d1">
+
+    </div>
+    <script src="~/Scripts/jquery-1.8.0.min.js"></script>
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+    @if (Session["relo"] != null)
+    {
+        Session["relo"] = null;
+
+        <script>window.location.reload();</script>
+    }
+</body>
+</html>

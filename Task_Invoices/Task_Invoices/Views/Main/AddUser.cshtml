@@ -1,0 +1,67 @@
+﻿@model Task_Invoices.Models.TUser
+
+
+<div class="text-center" style="width:400px;height:400px;padding:5px;border:1px solid black;">
+    <h2>Registeration</h2>
+    @using (Ajax.BeginForm("AddUser", "Main", FormMethod.Post,
+       new AjaxOptions
+       {
+           UpdateTargetId = "d1",
+           InsertionMode = InsertionMode.Replace,
+           OnComplete = "OnCommentpostComplete",
+
+       }, new { @class = "" }))
+    {
+
+        <table class="table table-responsive">
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(n => n.FullName)
+                </td>
+                <td>
+                    @Html.TextBoxFor(n => n.FullName)
+                </td>
+                <td>@Html.ValidationMessageFor(n => n.FullName, null, new { @class = "text-danger" })</td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(n => n.UserName)
+                </td>
+                <td>
+                    @Html.TextBoxFor(n => n.UserName)
+                </td>
+                <td>@Html.ValidationMessageFor(n => n.UserName, null, new { @class = "text-danger" })</td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(n => n.Email)
+                </td>
+                <td>
+                    @Html.TextBoxFor(n => n.Email)
+                </td>
+                <td>@Html.ValidationMessageFor(n => n.Email, null, new { @class = "text-danger" })</td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(n => n.Password)
+                </td>
+                <td>
+                    @Html.PasswordFor(n => n.Password)
+                </td>
+                <td>@Html.ValidationMessageFor(n => n.Password, null, new { @class = "text-danger" })</td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.DisplayNameFor(n => n.Phone)
+                </td>
+                <td>
+                    @Html.TextBoxFor(n => n.Phone)
+                </td>
+                <td>@Html.ValidationMessageFor(n => n.Phone, null, new { @class = "text-danger" })</td>
+            </tr>
+        </table>
+        <input type="submit" value="Save" class="btn btn-info" />
+    }
+
+</div>
+

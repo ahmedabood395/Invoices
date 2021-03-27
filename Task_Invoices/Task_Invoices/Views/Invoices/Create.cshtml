@@ -1,0 +1,55 @@
+﻿@model Task_Invoices.Models.Invoice
+
+
+@using (Ajax.BeginForm("Create", "Invoices", FormMethod.Post,
+      new AjaxOptions
+      {
+          UpdateTargetId = "d1",
+          InsertionMode = InsertionMode.Replace,
+          OnComplete = "OnCommentpostComplete",
+
+      }, new { @class = "" }))
+{
+    <table class="table" border="1">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">Product</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (ViewBag.data != null)
+            {
+                foreach (var item in (List<Task_Invoices.Models.ListInvoice>)ViewBag.data)
+                {
+                    <tr>
+                        <td>
+                            @item.Product
+                        </td>
+                        <td>
+                            @item.Quantity
+                        </td>
+                        <td>
+                            @item.Price
+                        </td>
+                    </tr>
+                }
+            }
+            <tr>
+                <td>
+                    @Html.TextBoxFor(n => n.Product)
+                </td>
+                <td>
+                    @Html.TextBoxFor(n => n.Quantity)
+                </td>
+                <td>
+                    @Html.EditorFor(n=>n.Price)
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <input type="hidden" name="Id_User" value="@ViewBag.Id" />
+    <input type="submit" value="Add New Row" class="btn btn-info" />
+    @Html.ActionLink("Save All","SaveDB",new { id= ViewBag.Id },new { @class="btn btn-primary"})
+}

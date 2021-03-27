@@ -1,0 +1,78 @@
+﻿@model Task_Invoices.Models.TUser
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>register</title>
+    <link href="~/Files/bootstrap.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="modal-dialog-centered justify-content-center">
+        <div class="text-center" style="width:400px;height:400px;padding:5px;border:1px solid black;">
+            <h2>Registeration</h2>
+            <form method="post">
+                <table class="table table-responsive">
+                    <tr>
+                        <td>
+                            @Html.DisplayNameFor(n => n.FullName)
+                        </td>
+                        <td>
+                            @Html.TextBoxFor(n => n.FullName)
+                        </td>
+                        <td>@Html.ValidationMessageFor(n => n.FullName,null,new { @class= "text-danger" })</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @Html.DisplayNameFor(n => n.UserName)
+                        </td>
+                        <td>
+                            @Html.TextBoxFor(n => n.UserName)
+                        </td>
+                        <td>@Html.ValidationMessageFor(n => n.UserName, null, new { @class = "text-danger" })</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @Html.DisplayNameFor(n => n.Email)
+                        </td>
+                        <td>
+                            @Html.TextBoxFor(n => n.Email)
+                        </td>
+                        <td>@Html.ValidationMessageFor(n => n.Email, null, new { @class = "text-danger" })</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @Html.DisplayNameFor(n => n.Password)
+                        </td>
+                        <td>
+                            @Html.PasswordFor(n => n.Password)
+                        </td>
+                        <td>@Html.ValidationMessageFor(n => n.Password, null, new { @class = "text-danger" })</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @Html.DisplayNameFor(n => n.Phone)
+                        </td>
+                        <td>
+                            @Html.TextBoxFor(n => n.Phone)
+                        </td>
+                        <td>@Html.ValidationMessageFor(n => n.Phone, null, new { @class = "text-danger" })</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="submit" value="Register" class="btn btn-primary" />
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+    </div>
+    <script src="~/Scripts/jquery-1.8.0.min.js"></script>
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+</body>
+</html>

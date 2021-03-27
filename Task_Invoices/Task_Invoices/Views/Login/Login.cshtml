@@ -1,0 +1,100 @@
+﻿@model Task_Invoices.Models.TUser
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Login</title>
+    <link href="~/Files/bootstrap.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="modal-dialog-centered justify-content-center"> 
+        <div class="text-center" style="width:410px;height:400px;padding:5px;border:1px solid black;">
+            <h2>LogIn</h2>
+            <form method="post">
+                <table class="table table-responsive">
+                    <tr>
+                        <td id="td1">
+                            @Html.DisplayNameFor(n => n.UserName)
+                        </td>
+                        <td>
+                            @Html.TextBoxFor(n => n.UserName)
+                        </td>
+                        <td>@Html.ValidationMessageFor(n => n.UserName, null, new { @class = "text-danger" })</td>
+                    </tr>
+                    <tr>
+                        <td id="td2">
+                            @Html.DisplayNameFor(n => n.Password)
+                        </td>
+                        <td>
+                            @Html.PasswordFor(n => n.Password)
+                        </td>
+                        <td>@Html.ValidationMessageFor(n => n.Password, null, new { @class = "text-danger" })</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <select name="role">
+                                <option id="op1" value="Admin">Admin</option>
+                                <option id="op2" value="User">User</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="submit" id="sb1" value="Sign In" class="btn btn-primary" />
+                        </td>
+                        <td>
+                            @Html.ActionLink("Register", "register", null, new { @class = "btn btn-primary" ,id = "rg" })
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>@if (ViewBag.mess != null){@ViewBag.mess;} </td>
+                    </tr>
+                   <tr>
+                       <td>
+                           <input type="button" id="btn1" value="change Language" class="btn btn-primary" onclick="Change()" />
+                       </td>
+                   </tr>
+                </table>
+            </form>
+        </div>
+    </div>
+    <script src="~/Scripts/jquery-1.8.0.min.js"></script>
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+    <script>
+        function Change() {
+            var dire = document.body.style.direction
+            if (dire == "ltr") {
+                document.body.style.direction = "rtl";
+                document.body.lang = "AR";
+                document.getElementById("td1").innerHTML = "اسم المستخدم";
+                document.getElementById("td2").innerHTML = "الرقم السرى";
+                document.getElementById("op1").innerHTML = "ادمن";
+                document.getElementById("op2").innerHTML = "مستخدم";
+                document.getElementById("sb1").value = "تسجيل الدخول";
+                document.getElementById("rg").innerHTML = "تسجيل";
+                document.getElementById("btn1").value = "تغير اللغه";
+                document.getElementsByTagName("h2")[0].innerHTML = "تسجيل الدخول";
+            }
+            else {
+                document.body.style.direction = "ltr";
+                document.body.lang = "EN";
+                document.getElementById("td1").innerHTML = "UserName";
+                document.getElementById("td2").innerHTML = "Password";
+                document.getElementById("op1").innerHTML = "Admin";
+                document.getElementById("op2").innerHTML = "User";
+                document.getElementById("sb1").value = "Sign In";
+                document.getElementById("rg").innerHTML = "Register";
+                document.getElementById("btn1").value = "Change Language";
+                document.getElementsByTagName("h2")[0].innerHTML = "LogIn";
+            }
+
+        }
+    </script>
+</body>
+</html>
